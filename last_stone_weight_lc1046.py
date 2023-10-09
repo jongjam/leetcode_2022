@@ -28,7 +28,7 @@ def build_max_heap(stones) :
         _heapify_max(stones)
     
 def main() :
-    stones = [2,7,4,1,8,1,1]
+    stones = [7,6,7,6,9]
     lastStoneWeight(stones)
 
 main()

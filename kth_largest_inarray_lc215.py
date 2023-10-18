@@ -1,32 +1,45 @@
-import heapq
+class Solution:
+    # Quick sort.... can use sort python thingy but no one will just
+    # let that shit slide GOD FUCKING DAMNIT!
+    og_len = 0
+    idx = 0
 
-# Use numpy to make it... reversed
-# You could sort it and do it... duh        
-# Use of a max heap cut down to K size so head is kth largest element
-# def findKthLargest(nums, k) :
-#     heap = []
-#     # When working with a list to have it in sorted order... you must add in a stream 
-#     for i in nums :
-#         heapq.heappush(heap, i)
-    
-#     while len(heap) > k :
-#         heapq.heappop(heap)
-#     return heapq.heappop(heap)
+    def quick_select(self, nums, start, end, k) : 
+        if end <= start :
+            return nums[self.idx]
+        pivot = partition(nums, start, end)
+        half = self.og_len // 2
 
-# Max heap
-def findKthLargest(nums, k) :
-    heapq._heapify_max(nums)
-    print(nums)
-    i = 0
-    while i < 2:
-        heapq.heappop(nums)
+        if k < half :
+            quick_select(nums, self.idx, end, k)
+        if k >= half :
+            quick_select(nums, start, self.idx, k)
+
+    def partition(self, nums, start, end) :
+        i = start - 1 # I is the location of the larger element and will only go up if j passes over a larger item
+        j = start
+
+        pivot = end
+
+        while j <= end :
+            if nums[j] < nums[pivot] :
+                i += 1
+                nums[j], nums[i] = nums[i], nums[j]
+            j += 1
+        
         i += 1
-    return heapq.heappop(nums)
+        nums[i], nums[pivot] = nums[pivot], nums[i]
 
-def main() :
-    nums = [3,2,3,1,2,4,5,5,6]
-    k = 4
-    # Should print 5 because second largest is 5
-    print(findKthLargest(nums, k))
+        return i # I is the location of the old pivot and partitions will continue based on this location
 
-main()    
+
+
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        # It is quick sort except the next partion will happen
+            # if k less than half nums length... start length - k to end
+            # if k greater than half nums length... start 0 to length - k
+        self.idx = len(nums) - k
+        self.og_len = len(nums)
+        return quick_select(nums, 0, len(nums) - 1, k)
+
+   

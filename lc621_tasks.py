@@ -4,7 +4,8 @@ import heapq
 
 class Solution:
     def leastInterval(self, tasks, n):
-          # So I was right in using a counter
+        # N shows the amount of space where two chars cannot be repeated
+        # So I was right in using a counter
         time = 0
         counts = Counter(tasks)
         maxHeap = [-x for x in counts.values()]
@@ -19,8 +20,8 @@ class Solution:
                 element = 1 + heapq.heappop(maxHeap)
                 if element : # is not 0
                     # current task will be available at this next time
-                    time = time + n
-                    q.append([element, time])
+                    next_ready_time = time + n
+                    q.append([element, next_ready_time])
 
             if q and q[0][1] == time:
                 heapq.heappush(maxHeap, q.popleft()[0])

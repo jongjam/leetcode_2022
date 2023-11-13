@@ -5,7 +5,6 @@ def evalRPN(tokens):
 
     # When further operations are found use the previous item plus the top of stack
     s = []
-    result = 0
 
     for op in tokens :
         if op == '+' or op == '-' or op == '*' or op == '/' :
@@ -17,7 +16,7 @@ def evalRPN(tokens):
             # it's not an op
             s.append(int(op))
     
-    return result
+    return s[0]
 
 
 def eq_eval(a, b, op) :

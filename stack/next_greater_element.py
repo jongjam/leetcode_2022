@@ -24,20 +24,15 @@ class Solution2:
             s[a] = i
         
         print(s)
-        result = []
-        for i in nums1 :
-            found = False
-            j = s.get(i) + 1
-            loc = -1
+        result = [-1] * len(nums1)
+        for i, n in enumerate(nums1) :
+            j = s.get(n) + 1
             while j < len(nums2) :
-                if nums2[j] > i :
-                    found = True
-                    result.append(nums2[j])
+                if nums2[j] > n :
+                    result[i] = nums2[j]
                     break
                 j += 1
             
-            if found is False :
-                result.append(-1)
-            
+         
 
         return result

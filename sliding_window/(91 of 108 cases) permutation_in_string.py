@@ -9,7 +9,6 @@ class Solution:
         l = 0
         r = 2
         counts_s1 = Counter(s1)
-        counts+
          # window length
 
         

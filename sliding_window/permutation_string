@@ -37,13 +37,9 @@ class Solution:
             if s2_count[idx] == s1_count[idx] :
                 matches += 1
             elif s2_count[idx] - 1 == s1_count[idx] :
-                matches -= 1k
+                matches -= 1
             l += 1 # moving up the left side of window
         return False
 def char_conv(c):
     return ord(c) - ord('a')
 
-def main() :
-
-
-main()

@@ -1,0 +1,49 @@
+from collections import Counter
+class Solution:
+    def checkInclusion(self, s1, s2) :
+        s1_count = [0] * 26
+        wz = len(s1) - 1
+        s2_count = [0] * 26
+        matches = 0
+
+        for i in range(len(s1)) :
+            c1 = char_conv(s1[i])
+            c2 = char_conv(s2[i])
+            s1_count[c1] += 1
+            s2_count[c2] += 1
+
+        for i in range(26) :
+            matches += 1 if s1[i] == s2[i] else 0
+
+        # remove the first one
+        # you can change the window bounds in the for loop or do an if check for indexes. changing the window bounds is a little easier
+        
+        # so check the difference the far right makes
+        l = 0 # how the fuck does this work shouldn't l be 1
+        for r in range(len(s1), len(s2)) : # start at 1 because we did the first one already
+            if matches == 26 :
+                return True
+            idx = char_conv(s2[r])
+            
+            s2_count[idx] += 1
+            if s2_count[idx] == s1_count[idx] :
+                matches += 1
+            elif s2_count[idx] + 1 == s1_count[idx] :
+                matches -= 1
+            
+            idx = char_conv(s2[l])
+            s2_count[idx] -= 1
+            
+            if s2_count[idx] == s1_count[idx] :
+                matches += 1
+            elif s2_count[idx] - 1 == s1_count[idx] :
+                matches -= 1k
+            l += 1 # moving up the left side of window
+        return False
+def char_conv(c):
+    return ord(c) - ord('a')
+
+def main() :
+
+
+main()

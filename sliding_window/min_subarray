@@ -1,0 +1,32 @@
+from math import inf
+
+def minSubArrayLen(target, nums):
+    res = float(inf)
+    l = 0
+
+    sum = 0
+
+    for r, num in enumerate(nums) :
+        sum += num
+
+        while sum >= target:
+            res = min(res, r - l + 1)
+            sum -= nums[l]
+            l += 1
+            
+    return res if res < float(inf) else 0 
+
+def main() :
+    nums1 = [2,3,1,2,4,3]
+    nums2 = [1,4,4]
+    nums3 = [1,1,1,1,1,1,1,1]
+    nums4 = [1,2,3,4,5
+             ]    
+    t1 = 7
+    t2 = 4
+    t3 = 11
+    
+    res = minSubArrayLen(t3, nums4)
+    print(res)
+    
+main()

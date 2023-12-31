@@ -9,15 +9,10 @@ class Solution:
     def isSubtree(self, root, subRoot):
         # FUCK FUCK FUCK FUCK FUCK
         def dfs(root, subRoot) :
-            if root :
-                res = dfs(root.right, subRoot) or dfs(root.left, subRoot)
-                if root.val == subRoot.val :
-                    return isSameTree(root, subRoot) or res # the problem here is that I can't stop here
-                    # because not all values in the tree are not unique I need to keep recursing and see
-                return res
-            # if root is none, that means we didn't find a match the whole way through so there is no subtree in root
-            return False 
-            
+            if isSameTree(root, subRoot) : return True
+            if not root : return False
+            return dfs(root.left, subRoot) or dfs(root.right, subRoot)
+                
 
         def isSameTree(p, q) :        
             if not p and not q :

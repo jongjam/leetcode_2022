@@ -30,7 +30,7 @@ def main() :
    c = TreeNode(5)
    b = TreeNode(4, d, e)
    #r 
-   a = TreeNode(3 , b, c)
+   a = TreeNode(3, b, c)
    
    sc = TreeNode(2)
    sb = TreeNode(1)

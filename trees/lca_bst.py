@@ -8,9 +8,9 @@ class TreeNode:
 class Solution:
     def lowestCommonAncestor(self, root, p, q):
         if root.val > p.val and root.val > q.val :
-            self.lowestCommonAncestor(root.left, p, q) # if bigger than both, go left
+            return self.lowestCommonAncestor(root.left, p, q) # if bigger than both, go left
         elif root.val < p.val and root.val < q.val :
-            self.lowestCommonAncestor(root.right, p, q)
+            return self.lowestCommonAncestor(root.right, p, q)
         else :
             return root
 def main() :

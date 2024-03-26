@@ -1,19 +1,15 @@
 class Solution:
     def pacificAtlantic(self, grid: List[List[int]]) -> List[List[int]]:
-        # checking every cell and seeing if there is a path for them to max out or zero out
-        # on the i axis AND the j axis.
         result = []
-        # Every point can be checked but it will only continue the DFS if there is an adjacent point that is lower value. 
-        # append only when lower
-        # I guess don't really need a visited....
-
-        # if grid[i][j] is at edge : then add to [i,j] to the result
-        # DFS bc we want to touch the edge
-
-          # CUR, L, R, U, D
+        # CUR, L, R, U, D
         directions = ((-1,0), (1,0), (0,1), (0,-1))
+        # If we touch pac or atl
 
-        def pac_check(i, j) :
+        ROWS = len(grid)
+        COLS = len(grid[0])
+        visited = set()
+
+          def pac_check(i, j) :
             i_case = True if i == 0 else False
             j_case = True if j == 0 else False
 
@@ -25,39 +21,46 @@ class Solution:
             j_case = True if j == len(grid[i]) - 1 else False
 
             return i_case or j_case
-        
-        # The iteration part is almost correct just need to figure out how to check the current node
+
+        # Starting backwards is a good idea. 
         def dfs(i, j) :
             stack = deque()
             stack.append([i, j])
-            pac = False
-            atl = False
-             
-
             # if pac and atl_check then True 
+            pac, atl = False, False
             while stack :
-                i, j = stack.pop() 
-                current = grid[i][j]
-                
-                pac = pac or pac_check(i, j)
-                atl = atl or atl_check(i, j) # this might go wrong but I'm pretty sure it's best to check the current 
+                i, j = stack.pop()
+                visited.append((i, j))
+                if pac_check(i, j) and atl_check(i, j) : 
+                    return True
 
                 for direction in directions : 
                     next_i = i + direction[0]
                     next_j = j + direction[1]
                     next_val = grid[next_i][next_j]
-            
-                    if next_i in range(len(grid)) and next_j in range(len(grid[i])) :
-                        if next_val >= current : 
+                    # Do not continue on visited grids            
+                    if (next_i, next_j) not in visited and next_i in range(len(grid)) and next_j in range(len(grid[i])) :
+                        if next_val <= current : 
                             stack.append([next_i, next_j])
-            return pac and atl
+                            
+            return False
+        # Need to start from all edges
+        
+        for i in range(COLS) :
+            # Top : [0][i] in range(cols)
+            if (0, i) not in visited:
+                dfs(0, i)
+            # Bottom : [rows - 1][i] in range(cols) 
+            if (rows - 1, i) not in visited:
+                dfs(rows - 1, i)
             
-        # I think I might have an issue where the DFS is running too much
-        for i in range(len(grid)) :
-            for j in range(len(grid[i])) :
-                if dfs(i, j) :
-                    # bounds check here or later will take some more thought
-                    result.append([i, j])
+        for i in range(ROWS) :
+            # Left : [i][0] in range(rows)
+            if (i, 0) not in visited:
+                dfs(i, 0)
+            # Right : [cols - 1][i] in range(rows)
+            if (cols - 1, i) not in visited:
+                dfs(cols - 1, i)
 
         return result
 

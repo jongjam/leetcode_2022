@@ -6,8 +6,10 @@ class Solution:
         # If so add them to queue and change them to 2, marking them as visited
         # figure out how to increase time only per level
 
-        minutes = 0
-
+        # Minutes cannot be calculated by level.
+        # need to find the max distance between the furthest fresh orange from the first rotten one
+        minutes = 0 
+        
         # LRUD
         directions = ((-1,0), (1,0), (0,1), (0,-1))
 
@@ -24,14 +26,14 @@ class Solution:
                     if grid[next_i][next_j] == '1' :
                         grid[next_i][next_j] = '2'
                         q.append((next_i, next_j))
-            minutes += 1
+                minutes += 1
 
-        for i range(len(grid)) :
+        for i in range(len(grid)) :
             for j in range(len(grid[i])) :
                 if grid[i][j] == 2 :
-                    bfs()
+                    bfs(i, j)
         
-        for i range(len(grid)) :
+        for i in range(len(grid)) :
             for j in range(len(grid[i])) :
                 if grid[i][j] == 1 :
                     return -1

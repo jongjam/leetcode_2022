@@ -37,7 +37,7 @@ class Solution:
                     next_j = j + direction[1]
 
                     if (in_bounds(next_i, next_j) and board[next_i][next_j] == 'O' and 
-                        board[next_i][next_j] not in safe_o) :
+                         (next_i, next_j) not in safe_o) :
                         stack.append((next_i, next_j))
                         safe_o.add((next_i, next_j))
 
@@ -57,8 +57,8 @@ class Solution:
 
             
         # Time limit exceeded. 
-        for i in range(ROWS) :
-            for j in range(COLS) :
+        for i in range(1, ROWS - 1) :
+            for j in range(1, COLS - 1) :
                 if (i, j) not in safe_o and board[i][j] != 'X' :
                     board[i][j] = 'X'                
     

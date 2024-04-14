@@ -3,20 +3,22 @@ class Solution:
         # remove the edge that forms cycle
 
         # making adjacency list again
-        self.already_connected = defaultdict(list)
+        self.adj_list = defaultdict(list)
         for a, b in edges :
-            self.visited = defaultdict(bool) # basically just a visited set
-            if self.is_already_connected(a,b) : # if path already exists
+            self.visited = set() # dfs is run on every node so a fresh visited is needed each time
+            if self.edge_exists(a,b) : # if path already exists
                 return [a, b] # the edge 
-            self.already_connected[a].append(b) # adding paths to graph/adjacency list
-            self.already_connected[b].append(a) 
+            self.adj_list[a].append(b) # adding paths to graph/adjacency list
+            self.adj_list[b].append(a) 
         
-    def is_already_connected(self, a, b) :
-        if a == b :
+    def edge_exists(self, a, b) :
+        if a == b : # the base case
             return True
-        for a_adjacent in self.already_connected[a] :
-            if not self.visited[a_adjacent] : # if not visited yet check if path exists. if path exists cycle
-                self.visited[a_adjacent] = True
-                if self.is_already_connected(a_adjacent, b) :
+
+        self.visited.add(a)
+        for neighbor in self.adj_list[a] :
+            if neighbor not in self.visited : # if not visited yet check if path exists. if path exists cycle
+                if self.edge_exists(neighbor, b) :
                     return True
         return False
+

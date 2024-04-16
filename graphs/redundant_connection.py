@@ -1,5 +1,8 @@
+from collections import defaultdict
+
+
 class Solution:
-    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+    def findRedundantConnection(self, edges) :
         # remove the edge that forms cycle
 
         # making adjacency list again
@@ -9,7 +12,7 @@ class Solution:
             if self.edge_exists(a,b) : # if path already exists
                 return [a, b] # the edge 
             self.adj_list[a].append(b) # adding paths to graph/adjacency list
-            self.adj_list[b].append(a) 
+            self.adj_list[b].append(a) # eventually once this is filled out enough 
         
     def edge_exists(self, a, b) :
         if a == b : # the base case
@@ -22,3 +25,10 @@ class Solution:
                     return True
         return False
 
+def main() :
+    edges = [[1,2],[1,3],[2,3]]
+    obj = Solution()
+    print(obj.findRedundantConnection(edges))
+
+main()
+    

@@ -8,12 +8,12 @@ class Solution:
         adj_list = {i:[] for i in range(n)}
         for src,dest in edges :
             adj_list[src].append(dest)
-            adj_list[dest].append(src)
-        
+            adj_list[dest].append(src) # bc bidirectional
+        print(adj_list)
 
         # start the algorithm starting at source 
         stack = deque()
-        stack.append(0)
+        stack.append(source)
         visited = set()
         # there is a cycle...
 

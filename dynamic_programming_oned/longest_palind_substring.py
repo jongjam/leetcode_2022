@@ -10,13 +10,14 @@ class Solution:
         result = s[mid]
         left = mid - 1
         right = mid + 1
-        
+        print(result)
         def inRange(left, right) :
-            return left >= 0 and right < len(s)
+            return left >= 0 or right < len(s)
         
         while inRange(left, right) :
-            left_char = s[left]
-            right_char = s[right]
+            
+            left_char = s[left] if left >= 0 else None
+            right_char = s[right] if right < len(s) else None
             if left_char == right_char :
                 result = left_char + result + right_char
             else :

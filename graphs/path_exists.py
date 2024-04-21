@@ -8,13 +8,14 @@ class Solution:
         adj_list = {i:[] for i in range(n)}
         for src,dest in edges :
             adj_list[src].append(dest)
-
+            adj_list[dest].append(src)
         
 
         # start the algorithm starting at source 
         stack = deque()
-        stack.append(source)
+        stack.append(0)
         visited = set()
+        # there is a cycle...
 
         while stack :
             current = stack.pop()
@@ -26,8 +27,5 @@ class Solution:
                     stack.append(neighbor)
 
         return False
-
-
-
-
-
+        
+        # the problem is bc adj list not supporting bidirectoional

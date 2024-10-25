@@ -5,36 +5,31 @@
 #         self.next = next
 class Solution:
     def reorderList(self, head: Optional[ListNode]) -> None:
-        """
-        Do not return anything, modify head in-place instead.
-        """
-        second_half = head
-        dummy = head
+        slow = fast = head
 
-        while dummy is not None and dummy.next is not None:
-            second_half = second_half.next
-            dummy = dummy.next.next
+        while fast and fast.next :
+            slow = slow.next
+            fast = fast.next.next
         
-        dummy = second_half
-        second_half = second_half.next #now starts at the next half
-        dummy.next = None
-    
-        # Reversing the second half for merging
-
+        dummy = slow.next
+        slow.next = None
         prev = None
-        while second_half is not None:
-            cur = second_half
-            second_half = second_half.next
-            cur.next = prev
-            prev = cur
-        #Second half now reversed
-        second_half = prev
-         
-        dummy = head
-        while dummy is not None and second_half is not None :
-            cur = dummy.next
-            dummy.next = second_half
-            second_half = second_half.next
-            dummy = dummy.next
-            dummy.next = cur
-            dummy = dummy.next
+
+        while dummy :
+            temp = dummy.next # save the rest of the list after reversing
+            dummy.next = prev
+            prev = dummy
+            dummy = temp
+        
+        # Ok now must merge the lists
+        list1 = head
+        list2 = prev
+
+        while list1 and list2:
+            temp = list1.next
+            list1.next = list2
+            list2 = list2.next
+            list1 = list1.next
+            list1.next = temp
+            list1 = list1.next
+

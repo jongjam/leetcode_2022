@@ -1,11 +1,8 @@
 class Solution:
-    # use of the maps and adding the things together
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        sums = {}
-        # num pairs, key is the num, the value is the counterpart to get to the target(target - key)
-        # target - key is the key, nums is the value
-        for i in range(len(nums)) :
-            if target - nums[i] in sums :
-                return [i, sums[target - nums[i]]]
-            else :
-                sums[nums[i]] = i
+        n = len(nums)
+        for i in range(n - 1):
+            for j in range(i + 1, n):
+                if nums[i] + nums[j] == target:
+                    return [i, j]
+        return []  # No solution found
